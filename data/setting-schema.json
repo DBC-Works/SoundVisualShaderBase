@@ -1,0 +1,120 @@
+{
+  "title": "Setting",
+  "description": "SoundVisualShaderBase setting.",
+  "type": "object",
+  "properties": {
+    "framePerSecond": {
+      "description": "Frame count per second.",
+      "type": "number"
+    },
+    "background": {
+      "description": "Color and image setting of background.",
+      "type": "object",
+      "properties": {
+        "onlyInitialization": {
+          "description": "Initialize background only start time if true.",
+          "type": "boolean"
+        },
+        "color": {
+          "description": "Color code.",
+          "type": "string",
+          "pattern": "^#[0-9a-f]{6}$"
+        },
+        "image": {
+          "description": "Image file location.",
+          "type": "string"
+        }
+      }
+    },
+    "repeat": {
+      "description": "Play endless if true.",
+      "type": "boolean",
+      "default": false
+    },
+    "out": {
+      "description": "Output definition.",
+      "type": "object",
+      "properties": {
+        "recordImageType": {
+          "description": "Image type of recording frame.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "jpeg",
+            "jpg",
+            "png",
+            "tga",
+            ""
+          ]
+        },
+        "connection": {
+          "description": "External connection name(for spout).",
+          "name": {
+            "description": "Send name.",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "sounds": {
+      "description": "Sound list to play.",
+      "type": "array",
+      "item": "object",
+      "properties": {
+        "location": {
+          "description": "Location of the sound file.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "location"
+      ]
+    },
+    "shaders": {
+      "description": "Shader list to visualize.",
+      "type": "array",
+      "item": "object",
+      "properties": {
+        "fileName": {
+          "description": "File name of shader.",
+          "type": "string"
+        },
+        "disabled": {
+          "description": "Don't apply until enabled if true.",
+          "type": "boolean",
+          "default": false
+        },
+        "options": {
+          "description": "Shader specific options.",
+          "type": "object",
+          "properties": {
+            "initial": {
+              "description": "Values to set when loading.",
+              "type": "array",
+              "item": "object",
+              "properties": {
+                "name": {
+                  "description": "Option name.",
+                  "type": "string"
+                },
+                "value": {
+                  "description": "Option value."
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "fileName"
+        ]
+      }
+    },
+    "required": [
+      "framePerSecond",
+      "sounds",
+      "shaders"
+    ]
+  }
+}

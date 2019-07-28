@@ -1,0 +1,41 @@
+{
+  "framePerSecond": 18,
+  "out": {
+    "recordImageType": "",
+    "connection": {
+      "name": ""
+    }
+  },
+  "repeat": false,
+  "sounds": [
+    {
+      "location": "Innumerable struggles against injustices(beat loop edit).mp3"
+    },
+    {
+      "location": "Signals behind our minds.mp3"
+    }
+  ],
+  "shaders": [
+    {
+      "location": "shader-ray-marching-study-01.frag",
+      "options": {
+      }
+    },
+    {
+      "location": "filter-color-picker.frag",
+      "disabled": false,
+      "options": {
+        "initial": [
+          {
+            "name": "hue",
+            "value": 240.0
+          },
+          {
+            "name": "tolerance",
+            "value": 0.1
+          }
+        ]
+      }
+    }
+  ]
+}
