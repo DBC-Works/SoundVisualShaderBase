@@ -10,7 +10,7 @@ precision mediump float;
 
 uniform sampler2D texture;
 uniform ivec2  resolution;
-uniform float timeSec;
+uniform float time;
 uniform float progress;
 uniform vec3 soundLevel;
 uniform float kick;
