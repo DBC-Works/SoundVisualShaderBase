@@ -1,7 +1,10 @@
 {
   "framePerSecond": 18,
   "out": {
-    "recordImageType": "",
+    "record": {
+      "imageType": "",
+      "path": "img"
+    },
     "connection": {
       "name": ""
     }

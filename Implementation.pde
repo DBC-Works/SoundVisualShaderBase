@@ -58,22 +58,36 @@ final class ShaderInfo {
 }
 
 FrameRecorder createFrameRecorder(JSONObject setting) {
+  final JSONObject record = setting.getJSONObject("record");
+  if (record == null) {
+    return null;
+  }
+
   FrameRecorderType recorderType = null;
-  String recordImageType = setting.getString("recordImageType");
-  if (recordImageType != null) {
-    recordImageType = recordImageType.toLowerCase();
-    if (recordImageType.equals("jpeg") || recordImageType.equals("jpg")) {
+
+  String imageType = record.getString("imageType");
+  if (imageType != null) {
+    imageType = imageType.toLowerCase();
+    if (imageType.equals("jpeg") || imageType.equals("jpg")) {
       recorderType = FrameRecorderType.AsyncRecorder;
     }
-    else if (recordImageType.equals("tga")) {
+    else if (imageType.equals("tga")) {
       recorderType = FrameRecorderType.SyncTgaRecorder;
     }
-    else if (recordImageType.equals("png")) {
+    else if (imageType.equals("png")) {
       recorderType = FrameRecorderType.SyncPngRecorder;
     }
   }
+  if (recorderType == null) {
+    return null;
+  }
 
-  return recorderType != null ? createFrameRecorderInstanceOf(recorderType) : null;
+  String recordPath = record.getString("path");
+  if (recordPath == null || recordPath.length() == 0) {
+    recordPath = "img";
+  }
+
+  return createFrameRecorderInstanceOf(recorderType, recordPath);
 }
 
 List<SoundInfo> loadSounds(JSONArray soundDefinitions) {

@@ -9,8 +9,8 @@ interface FrameRecorder {
 
 final class SyncFrameRecorder implements FrameRecorder {
   private final String frameFormat;
-  SyncFrameRecorder(String ext) {
-    frameFormat = "img/########." + ext;
+  SyncFrameRecorder(String path, String ext) {
+    frameFormat = path + "/########." + ext;
   }
 
   void recordFrame() {
@@ -24,8 +24,10 @@ final class SyncFrameRecorder implements FrameRecorder {
 final class AsyncFrameRecorder implements FrameRecorder {
   private final ExecutorService executor = Executors.newCachedThreadPool();
   private final List<Future> futures = new ArrayList<Future>();
+  private final String recordPath;
   
-  AsyncFrameRecorder() {
+  AsyncFrameRecorder(String path) {
+    recordPath = path;
   }
 
   void recordFrame() {
@@ -41,7 +43,7 @@ final class AsyncFrameRecorder implements FrameRecorder {
       public void run() {
         final PImage frameImage = createImage(width, height, HSB);
         frameImage.pixels = savePixels;
-        frameImage.save(String.format("img/%08d.jpg", saveFrameCount));
+        frameImage.save(String.format("%s/%08d.jpg", recordPath, saveFrameCount));
       }
     };
     
@@ -114,18 +116,18 @@ enum FrameRecorderType {
   AsyncRecorder
 }
 
-FrameRecorder createFrameRecorderInstanceOf(FrameRecorderType type) {
+FrameRecorder createFrameRecorderInstanceOf(FrameRecorderType type, String path) {
   switch (type) {
     /*
     case VideoExportRecorder:
       return new VideoExportRecorder(this);
      */
     case SyncTgaRecorder:
-      return new SyncFrameRecorder("tga");
+      return new SyncFrameRecorder(path, "tga");
     case SyncPngRecorder:
-      return new SyncFrameRecorder("png");
+      return new SyncFrameRecorder(path, "png");
     case AsyncRecorder:
-      return new AsyncFrameRecorder();
+      return new AsyncFrameRecorder(path);
     default:
       throw new RuntimeException();
   }

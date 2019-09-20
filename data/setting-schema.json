@@ -35,19 +35,29 @@
       "description": "Output definition.",
       "type": "object",
       "properties": {
-        "recordImageType": {
-          "description": "Image type of recording frame.",
-          "type": [
-            "string",
-            "null"
-          ],
-          "enum": [
-            "jpeg",
-            "jpg",
-            "png",
-            "tga",
-            ""
-          ]
+        "record": {
+          "description": "Record information.",
+          "type": "object",
+          "properties": {
+            "imageType": {
+              "description": "Image type of recording frame.",
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "jpeg",
+                "jpg",
+                "png",
+                "tga",
+                ""
+              ]
+            },
+            "path": {
+              "description": "Path to save recording images.",
+              "type": "string"
+            }
+          }
         },
         "connection": {
           "description": "External connection name(for spout).",
