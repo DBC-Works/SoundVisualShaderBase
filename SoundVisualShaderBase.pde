@@ -54,6 +54,9 @@ void draw() {
             recorder.finish();
             recorder = null;
           }
+          if (0 < frameDropCount) {
+            println("Frame drop count: ",  frameDropCount, " / ", frameCount, "(", (frameDropCount * 100.0 / frameCount) ,"%)");
+          }
           exit();
           return;
         }
@@ -66,9 +69,9 @@ void draw() {
   provider.update();
   final float progress = provider.getProgressPercentage();
 
-  if (0 <= startFrameCount && 0.0 < progress) {
-    println("Leading frame count: " + (frameCount - startFrameCount));
-    startFrameCount = -1;
+  if (startFrameCount == 0 && 0.0 < progress) {
+    println("Leading frame count: ", frameCount);
+    startFrameCount = frameCount;
   }
 
   if (onlyInitialization == false) {
